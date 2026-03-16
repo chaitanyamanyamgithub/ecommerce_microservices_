@@ -9,9 +9,15 @@
  */
 
 const { createLogger, format, transports } = require('winston');
+const fs = require('fs');
 const path = require('path');
 
 const { combine, timestamp, printf, colorize, errors } = format;
+const logsDirectory = path.join(process.cwd(), 'logs');
+
+if (!fs.existsSync(logsDirectory)) {
+  fs.mkdirSync(logsDirectory, { recursive: true });
+}
 
 // Custom log format for readable output
 const logFormat = printf(({ level, message, timestamp, stack, service }) => {
@@ -46,14 +52,14 @@ const createServiceLogger = (serviceName) => {
       }),
       // File transport for error logs
       new transports.File({
-        filename: path.join('logs', `${serviceName}-error.log`),
+        filename: path.join(logsDirectory, `${serviceName}-error.log`),
         level: 'error',
         maxsize: 5242880, // 5MB
         maxFiles: 5
       }),
       // File transport for combined logs
       new transports.File({
-        filename: path.join('logs', `${serviceName}-combined.log`),
+        filename: path.join(logsDirectory, `${serviceName}-combined.log`),
         maxsize: 5242880, // 5MB
         maxFiles: 5
       })

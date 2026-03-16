@@ -132,6 +132,57 @@ docker-compose logs -f
 docker-compose down
 ```
 
+### 6. Frontend Demo UI
+
+The repo now includes a minimal React + Vite storefront in `ecommerce-ui/` for the live observability demo.
+
+```bash
+cd ecommerce-ui
+npm install
+npm run dev
+```
+
+URLs:
+
+- `http://localhost:5173` - React storefront
+- `http://localhost:8080` - API gateway
+
+### 7. Observability URLs
+
+After `docker-compose up -d`, open:
+
+- `http://localhost:3000` - Grafana (`admin` / `admin`)
+- `http://localhost:16686` - Jaeger
+- `http://localhost:9090` - Prometheus
+
+Grafana auto-provisions:
+
+- Prometheus datasource
+- Loki datasource
+- `eCommerce Observability` as the default dashboard
+
+### 8. Recommended Demo Flow
+
+1. Open `http://localhost:5173`
+2. Browse products with `GET /api/products`
+3. Add an item to the cart with `POST /api/cart/add`
+4. Place an order with `POST /api/orders`
+5. Open Grafana for metrics and logs
+6. Open Jaeger for the checkout trace
+
+What this demonstrates:
+
+- metrics -> Prometheus -> Grafana
+- traces -> Jaeger
+- logs -> Loki -> Grafana Explore
+
+### 9. Demo-Friendly Defaults
+
+- The product-service auto-seeds sample products when its database is empty
+- The frontend uses a fixed demo user so the cart and order flow works immediately
+- The normal checkout path is deterministic and succeeds consistently for live demos
+- To trigger a failure on purpose, use the `crypto` payment method or an amount above `200000`
+
 ---
 
 ## 📡 API Reference

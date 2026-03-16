@@ -7,6 +7,18 @@
 
 const Cart = require('../models/Cart');
 const { AppError } = require('@shared/utils');
+const { createServiceLogger } = require('@shared/logger');
+const { metrics } = require('@opentelemetry/api');
+
+const logger = createServiceLogger('cart-service');
+const meter = metrics.getMeter('cart-service');
+const cartRequestsCounter = meter.createCounter('cart_requests', {
+  description: 'Cart operations performed by demo shoppers.'
+});
+const cartValueHistogram = meter.createHistogram('cart_value', {
+  description: 'Cart totals after cart mutations.',
+  unit: 'INR'
+});
 
 /**
  * Add an item to a user's cart.
@@ -65,6 +77,9 @@ const addToCart = async (itemData) => {
   }
 
   await cart.save(); // Triggers totalAmount recalculation
+  cartRequestsCounter.add(1, { operation: 'add' });
+  cartValueHistogram.record(cart.totalAmount, { operation: 'add' });
+  logger.info(`Added ${quantity} x ${productName} to cart for user ${userId}`);
   return cart;
 };
 
@@ -90,6 +105,7 @@ const getCartByUserId = async (userId) => {
   const cart = await Cart.findOne({ userId });
 
   if (!cart) {
+    cartRequestsCounter.add(1, { operation: 'view', state: 'empty' });
     // Return an empty cart representation instead of 404
     return {
       userId,
@@ -98,6 +114,8 @@ const getCartByUserId = async (userId) => {
       itemCount: 0
     };
   }
+
+  cartRequestsCounter.add(1, { operation: 'view', state: 'active' });
 
   return {
     ...cart.toJSON(),
@@ -138,6 +156,10 @@ const removeFromCart = async (userId, productId) => {
   cart.items.splice(itemIndex, 1);
   await cart.save(); // Triggers totalAmount recalculation
 
+  cartRequestsCounter.add(1, { operation: 'remove' });
+  cartValueHistogram.record(cart.totalAmount, { operation: 'remove' });
+  logger.info(`Removed product ${productId} from cart for user ${userId}`);
+
   return cart;
 };
 
@@ -151,11 +173,15 @@ const clearCart = async (userId) => {
   const cart = await Cart.findOne({ userId });
 
   if (!cart) {
+    cartRequestsCounter.add(1, { operation: 'clear', state: 'empty' });
     return { userId, items: [], totalAmount: 0 };
   }
 
   cart.items = [];
   await cart.save(); // Triggers totalAmount recalculation (will be 0)
+  cartRequestsCounter.add(1, { operation: 'clear', state: 'cleared' });
+  cartValueHistogram.record(cart.totalAmount, { operation: 'clear' });
+  logger.info(`Cleared cart for user ${userId}`);
   return cart;
 };
 

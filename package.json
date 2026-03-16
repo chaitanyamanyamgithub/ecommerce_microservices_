@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "frontend:dev": "npm --prefix ecommerce-ui run dev",
+    "frontend:build": "npm --prefix ecommerce-ui run build"
+  },
   "dependencies": {
     "module-alias": "^2.3.4"
   }

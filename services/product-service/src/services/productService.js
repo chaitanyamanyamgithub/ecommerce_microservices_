@@ -7,6 +7,17 @@
 
 const Product = require('../models/Product');
 const { AppError } = require('@shared/utils');
+const { createServiceLogger } = require('@shared/logger');
+const { metrics } = require('@opentelemetry/api');
+
+const logger = createServiceLogger('product-service');
+const meter = metrics.getMeter('product-service');
+const catalogRequestsCounter = meter.createCounter('catalog_requests', {
+  description: 'Catalog and product detail requests handled by the product service.'
+});
+const stockOperationsCounter = meter.createCounter('stock_operations', {
+  description: 'Inventory checks and stock decrements performed during checkout.'
+});
 
 /**
  * Get all products with optional filtering and pagination.
@@ -57,6 +68,9 @@ const getAllProducts = async (query) => {
     Product.countDocuments(filter)
   ]);
 
+  catalogRequestsCounter.add(1, { route: 'list' });
+  logger.info(`Catalog returned ${products.length} products for browsing`);
+
   return {
     products,
     pagination: {
@@ -82,6 +96,8 @@ const getProductById = async (productId) => {
     throw new AppError('Product not found', 404);
   }
 
+  catalogRequestsCounter.add(1, { route: 'detail' });
+
   return product;
 };
 
@@ -105,6 +121,7 @@ const getProductById = async (productId) => {
  */
 const createProduct = async (productData) => {
   const product = await Product.create(productData);
+  logger.info(`Created product ${product.name} with SKU ${product.sku || 'n/a'}`);
   return product;
 };
 
@@ -158,6 +175,11 @@ const checkStock = async (items) => {
     }
   }
 
+  stockOperationsCounter.add(1, {
+    operation: 'check',
+    result: insufficientItems.length === 0 ? 'available' : 'insufficient'
+  });
+
   return {
     available: insufficientItems.length === 0,
     insufficientItems
@@ -178,6 +200,9 @@ const decrementStock = async (items) => {
       await product.save();
     }
   }
+
+  stockOperationsCounter.add(1, { operation: 'decrement' });
+  logger.info(`Decremented stock for ${items.length} ordered line items`);
 };
 
 module.exports = {

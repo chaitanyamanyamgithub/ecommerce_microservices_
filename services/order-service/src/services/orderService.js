@@ -10,99 +10,156 @@
  */
 
 const axios = require('axios');
+const { metrics, trace, SpanStatusCode } = require('@opentelemetry/api');
+const { createServiceLogger } = require('@shared/logger');
+const { AppError } = require('@shared/utils');
 const Order = require('../models/Order');
 const config = require('../config');
-const { AppError } = require('@shared/utils');
 
 const { productService, cartService, paymentService } = config.services;
+const logger = createServiceLogger('order-service');
+const meter = metrics.getMeter('order-service');
+const tracer = trace.getTracer('order-service');
+const checkoutRequestsCounter = meter.createCounter('checkout_requests', {
+  description: 'Checkout requests grouped by lifecycle status.'
+});
+const checkoutValueHistogram = meter.createHistogram('checkout_value', {
+  description: 'Order totals processed by checkout.',
+  unit: 'INR'
+});
+const checkoutDurationHistogram = meter.createHistogram('checkout_duration', {
+  description: 'Time spent processing a checkout workflow.',
+  unit: 'ms'
+});
+
+const withSpan = async (name, fn) =>
+  tracer.startActiveSpan(name, async (span) => {
+    try {
+      return await fn(span);
+    } catch (error) {
+      span.recordException(error);
+      span.setStatus({
+        code: SpanStatusCode.ERROR,
+        message: error.message
+      });
+      throw error;
+    } finally {
+      span.end();
+    }
+  });
 
 /**
  * Create a new order with full orchestration.
- *
- * Flow:
- *   1. Verify stock availability via product-service
- *   2. Persist the order with status 'pending'
- *   3. Call payment-service to process payment
- *   4. On payment success: confirm order, decrement stock, clear cart
- *   5. On payment failure: mark order as failed
- *
- * @param {object} orderData - { userId, items, shippingAddress, paymentMethod, notes }
- * @returns {Promise<object>} Created order with payment info
  */
 const createOrder = async (orderData) => {
-  const { items, userId, paymentMethod = 'credit_card' } = orderData;
+  const startedAt = Date.now();
+  const { items, userId, paymentMethod = 'upi' } = orderData;
 
-  // ── Step 1: Check stock ────────────────────────────────────
-  try {
-    const stockRes = await axios.post(`${productService}/api/products/check-stock`, { items });
-    const stockData = stockRes.data.data;
+  checkoutRequestsCounter.add(1, { status: 'started' });
 
-    if (!stockData.available) {
-      throw new AppError(
-        `Insufficient stock for: ${stockData.insufficientItems.map(i => i.productName || i.productId).join(', ')}`,
-        400
-      );
-    }
-  } catch (error) {
-    if (error instanceof AppError) throw error;
-    throw new AppError(`Product service unavailable: ${error.message}`, 503);
-  }
+  return withSpan('checkout.process_order', async () => {
+    let order = null;
+    let totalAmount = 0;
 
-  // ── Step 2: Calculate total and create order ───────────────
-  const totalAmount = Math.round(
-    items.reduce((sum, item) => sum + item.price * item.quantity, 0) * 100
-  ) / 100;
+    try {
+      logger.info(`Checkout started for user ${userId} with ${items.length} items`);
 
-  orderData.totalAmount = totalAmount;
-  const order = await Order.create(orderData);
+      const stockData = await withSpan('checkout.check_stock', async () => {
+        try {
+          const stockRes = await axios.post(`${productService}/api/products/check-stock`, { items });
+          return stockRes.data.data;
+        } catch (error) {
+          if (error instanceof AppError) {
+            throw error;
+          }
 
-  // ── Step 3: Process payment ────────────────────────────────
-  try {
-    const paymentRes = await axios.post(`${paymentService}/api/payment`, {
-      orderId: order._id,
-      userId,
-      amount: totalAmount,
-      method: paymentMethod
-    });
+          throw new AppError(`Product service unavailable: ${error.message}`, 503);
+        }
+      });
 
-    const paymentData = paymentRes.data.data;
+      if (!stockData.available) {
+        throw new AppError(
+          `Insufficient stock for: ${stockData.insufficientItems.map((item) => item.productName || item.productId).join(', ')}`,
+          400
+        );
+      }
 
-    if (paymentData.status === 'completed') {
+      totalAmount = Math.round(
+        items.reduce((sum, item) => sum + item.price * item.quantity, 0) * 100
+      ) / 100;
+
+      orderData.totalAmount = totalAmount;
+      order = await Order.create(orderData);
+      logger.info(`Created pending order ${order.orderNumber} for user ${userId}`);
+
+      const paymentData = await withSpan('checkout.process_payment', async () => {
+        try {
+          const paymentRes = await axios.post(`${paymentService}/api/payment`, {
+            orderId: order._id,
+            userId,
+            amount: totalAmount,
+            currency: 'INR',
+            method: paymentMethod
+          });
+
+          return paymentRes.data.data;
+        } catch (error) {
+          if (error.response && error.response.status === 402) {
+            throw new AppError('Payment was declined', 402);
+          }
+
+          throw new AppError(`Payment service unavailable: ${error.message}`, 503);
+        }
+      });
+
+      if (paymentData.status !== 'completed') {
+        throw new AppError('Payment was declined', 402);
+      }
+
       order.paymentStatus = 'completed';
       order.status = 'confirmed';
       await order.save();
 
-      // ── Step 4: Decrement stock (best-effort) ──────────────
-      try {
-        await axios.post(`${productService}/api/products/decrement-stock`, { items });
-      } catch (err) {
-        // Log but don't fail the order — stock can be reconciled later
+      await withSpan('checkout.decrement_stock', async () => {
+        try {
+          await axios.post(`${productService}/api/products/decrement-stock`, { items });
+          logger.info(`Stock decremented for order ${order.orderNumber}`);
+        } catch (error) {
+          logger.warn(`Stock decrement failed for order ${order.orderNumber}: ${error.message}`);
+        }
+      });
+
+      await withSpan('checkout.clear_cart', async () => {
+        try {
+          await axios.delete(`${cartService}/api/cart/clear/${userId}`);
+          logger.info(`Cart cleared for user ${userId} after order ${order.orderNumber}`);
+        } catch (error) {
+          logger.warn(`Cart clear failed for order ${order.orderNumber}: ${error.message}`);
+        }
+      });
+
+      checkoutRequestsCounter.add(1, { status: 'confirmed' });
+      checkoutValueHistogram.record(totalAmount, { status: 'confirmed' });
+      checkoutDurationHistogram.record(Date.now() - startedAt, { status: 'confirmed' });
+      logger.info(`Order ${order.orderNumber} confirmed for user ${userId}`);
+
+      return order;
+    } catch (error) {
+      if (order) {
+        order.paymentStatus = 'failed';
+        order.status = 'cancelled';
+        await order.save().catch(() => {});
       }
 
-      // ── Step 5: Clear cart (best-effort) ────────────────────
-      try {
-        await axios.delete(`${cartService}/api/cart/clear/${userId}`);
-      } catch (err) {
-        // Log but don't fail the order
+      checkoutRequestsCounter.add(1, { status: 'failed' });
+      if (totalAmount > 0) {
+        checkoutValueHistogram.record(totalAmount, { status: 'failed' });
       }
-    } else {
-      order.paymentStatus = 'failed';
-      order.status = 'cancelled';
-      await order.save();
+      checkoutDurationHistogram.record(Date.now() - startedAt, { status: 'failed' });
+      logger.error(`Checkout failed for user ${userId}: ${error.message}`);
+      throw error;
     }
-  } catch (error) {
-    // Payment service call failed entirely
-    order.paymentStatus = 'failed';
-    order.status = 'cancelled';
-    await order.save();
-
-    if (error.response && error.response.status === 402) {
-      throw new AppError('Payment was declined', 402);
-    }
-    throw new AppError(`Payment service unavailable: ${error.message}`, 503);
-  }
-
-  return order;
+  });
 };
 
 /**

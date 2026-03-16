@@ -1,0 +1,777 @@
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.787135537Z caller=main.go:133 msg="Starting Loki" version="(version=3.6.7, branch=release-3.6.x, revision=7e1daf3a)"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.787365175Z caller=main.go:134 msg="Loading configuration file" filename=/etc/loki/local-config.yaml
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.802055381Z caller=server.go:386 msg="server listening on addresses" http=[::]:3100 grpc=[::]:9095
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.810237705Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.810496402Z caller=table_manager.go:300 index-store=boltdb-shipper-2024-01-01 msg="query readiness setup completed" duration=6.241µs distinct_users_len=0 distinct_users=
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.810601128Z caller=shipper.go:165 index-store=boltdb-shipper-2024-01-01 msg="starting index shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.8113894Z caller=table_manager.go:256 index-store=boltdb-shipper-2024-01-01 msg="loading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.812773838Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.81280784Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.812866384Z caller=index_client.go:91 index-store=boltdb-shipper-2024-01-01 msg="starting boltdb shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.812999947Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.813066894Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.813075793Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.831704778Z caller=worker.go:134 component=querier msg="Starting querier worker using query-scheduler and scheduler ring for addresses"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.833608153Z caller=mapper.go:47 msg="cleaning up mapped rules directory" path=/loki/rules-temp
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.869007693Z caller=module_service.go:82 msg=starting module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.86915699Z caller=module_service.go:82 msg=starting module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.869322521Z caller=module_service.go:82 msg=starting module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.86966694Z caller=module_service.go:82 msg=starting module=ring
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.86965011Z caller=module_service.go:82 msg=starting module=query-frontend-tripperware
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.869757772Z caller=module_service.go:82 msg=starting module=store
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.869754609Z caller=module_service.go:82 msg=starting module=query-scheduler-ring
+ecommerce-loki  | level=error ts=2026-03-13T16:31:35.877838187Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:35.878754004Z caller=loki.go:615 msg="module failed" module=ring error="starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.878862588Z caller=module_service.go:120 msg="module stopped" module=query-frontend-tripperware
+ecommerce-loki  | level=error ts=2026-03-13T16:31:35.878843376Z caller=loki.go:615 msg="module failed" module=distributor error="failed to start distributor, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:35.87888673Z caller=loki.go:615 msg="module failed" module=analytics error="failed to start analytics, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:35.878903686Z caller=loki.go:615 msg="module failed" module=ingester-querier error="failed to start ingester-querier, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:35.878924168Z caller=loki.go:615 msg="module failed" module=query-frontend error="failed to start query-frontend, because it depends on module query-scheduler, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:35.878936736Z caller=loki.go:615 msg="module failed" module=ruler error="failed to start ruler, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:35.878947372Z caller=loki.go:615 msg="module failed" module=rule-evaluator error="failed to start rule-evaluator, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:35.878956825Z caller=loki.go:615 msg="module failed" module=query-scheduler error="failed to start query-scheduler, because it depends on module query-scheduler-ring, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:35.87896651Z caller=loki.go:615 msg="module failed" module=ingester error="failed to start ingester, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:35.878975151Z caller=loki.go:615 msg="module failed" module=querier error="failed to start querier, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:35.878983498Z caller=loki.go:615 msg="module failed" module=compactor error="failed to start compactor, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.879094645Z caller=module_service.go:120 msg="module stopped" module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.879073372Z caller=table_manager.go:116 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.879162974Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.879276543Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.879284189Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.879306609Z caller=table_manager.go:77 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.879350023Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.879362234Z caller=index_set.go:86 msg="uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.899445196Z caller=index_set.go:107 msg="finished uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.899482128Z caller=index_set.go:186 msg="cleaning up unwanted indexes from table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:35.899727684Z caller=module_service.go:120 msg="module stopped" module=store
+ecommerce-loki  | level=error ts=2026-03-13T16:31:36.595740442Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:37.314014837Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:38.031930838Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=warn ts=2026-03-13T16:31:38.086388949Z caller=logging.go:144 orgID=fake msg="POST /loki/api/v1/push (500) 3.358759ms Response: \"empty ring\\n\""
+ecommerce-loki  | level=error ts=2026-03-13T16:31:38.749833999Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=warn ts=2026-03-13T16:31:38.787523344Z caller=logging.go:144 orgID=fake msg="POST /loki/api/v1/push (500) 595.876µs Response: \"empty ring\\n\""
+ecommerce-loki  | level=error ts=2026-03-13T16:31:39.467555793Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=warn ts=2026-03-13T16:31:40.009871885Z caller=logging.go:144 orgID=fake msg="POST /loki/api/v1/push (500) 737.901µs Response: \"empty ring\\n\""
+ecommerce-loki  | level=error ts=2026-03-13T16:31:40.184914583Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:40.903140426Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:41.620655711Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:42.338991298Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:42.341311432Z caller=loki.go:615 msg="module failed" module=query-scheduler-ring error="starting module query-scheduler-ring: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:42.341486645Z caller=module_service.go:120 msg="module stopped" module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:31:42.342614013Z caller=modules.go:2369 msg="server stopped"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:42.342647026Z caller=module_service.go:120 msg="module stopped" module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:31:42.342761916Z caller=loki.go:599 msg="Loki stopped" running_time=6.754802797s
+ecommerce-loki  | failed services
+ecommerce-loki  | github.com/grafana/loki/v3/pkg/loki.(*Loki).Run
+ecommerce-loki  | 	/src/loki/pkg/loki/loki.go:657
+ecommerce-loki  | main.main
+ecommerce-loki  | 	/src/loki/cmd/loki/main.go:136
+ecommerce-loki  | runtime.main
+ecommerce-loki  | 	/usr/local/go/src/runtime/proc.go:283
+ecommerce-loki  | runtime.goexit
+ecommerce-loki  | 	/usr/local/go/src/runtime/asm_amd64.s:1700
+ecommerce-loki  | level=error ts=2026-03-13T16:31:42.361864934Z caller=log.go:223 msg="error running loki" err="failed services\ngithub.com/grafana/loki/v3/pkg/loki.(*Loki).Run\n\t/src/loki/pkg/loki/loki.go:657\nmain.main\n\t/src/loki/cmd/loki/main.go:136\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:283\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_amd64.s:1700"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.439526332Z caller=main.go:133 msg="Starting Loki" version="(version=3.6.7, branch=release-3.6.x, revision=7e1daf3a)"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.439607145Z caller=main.go:134 msg="Loading configuration file" filename=/etc/loki/local-config.yaml
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.447505111Z caller=server.go:386 msg="server listening on addresses" http=[::]:3100 grpc=[::]:9095
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.457068114Z caller=table_manager.go:300 index-store=boltdb-shipper-2024-01-01 msg="query readiness setup completed" duration=2.988µs distinct_users_len=0 distinct_users=
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.45710948Z caller=shipper.go:165 index-store=boltdb-shipper-2024-01-01 msg="starting index shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.457268051Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.457414481Z caller=table_manager.go:256 index-store=boltdb-shipper-2024-01-01 msg="loading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.457783708Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.457809677Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.457864042Z caller=index_client.go:91 index-store=boltdb-shipper-2024-01-01 msg="starting boltdb shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.458014666Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.458075722Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.458084843Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.460872037Z caller=worker.go:134 component=querier msg="Starting querier worker using query-scheduler and scheduler ring for addresses"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.461876934Z caller=mapper.go:47 msg="cleaning up mapped rules directory" path=/loki/rules-temp
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.495070263Z caller=module_service.go:82 msg=starting module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.495099339Z caller=module_service.go:82 msg=starting module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.495170528Z caller=module_service.go:82 msg=starting module=query-frontend-tripperware
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.495198355Z caller=module_service.go:82 msg=starting module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.495223782Z caller=module_service.go:82 msg=starting module=query-scheduler-ring
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.49533163Z caller=module_service.go:82 msg=starting module=store
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.495322172Z caller=module_service.go:82 msg=starting module=ring
+ecommerce-loki  | level=error ts=2026-03-13T16:31:43.496850516Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:43.49721018Z caller=loki.go:615 msg="module failed" module=ring error="starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:43.497283859Z caller=loki.go:615 msg="module failed" module=distributor error="failed to start distributor, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:43.4972989Z caller=loki.go:615 msg="module failed" module=compactor error="failed to start compactor, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:43.497337879Z caller=loki.go:615 msg="module failed" module=analytics error="failed to start analytics, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:43.497402929Z caller=loki.go:615 msg="module failed" module=ingester-querier error="failed to start ingester-querier, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:43.497420582Z caller=loki.go:615 msg="module failed" module=ruler error="failed to start ruler, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:43.497432833Z caller=loki.go:615 msg="module failed" module=querier error="failed to start querier, because it depends on module query-scheduler-ring, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:43.497443612Z caller=loki.go:615 msg="module failed" module=ingester error="failed to start ingester, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.497456877Z caller=module_service.go:120 msg="module stopped" module=query-frontend-tripperware
+ecommerce-loki  | level=error ts=2026-03-13T16:31:43.497461362Z caller=loki.go:615 msg="module failed" module=query-frontend error="failed to start query-frontend, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:43.49747276Z caller=loki.go:615 msg="module failed" module=query-scheduler error="failed to start query-scheduler, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:43.497482968Z caller=loki.go:615 msg="module failed" module=rule-evaluator error="failed to start rule-evaluator, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.497573408Z caller=table_manager.go:116 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.497599853Z caller=module_service.go:120 msg="module stopped" module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.497608478Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.497697604Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.497705518Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.497726487Z caller=table_manager.go:77 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.497809366Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.497823393Z caller=index_set.go:86 msg="uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.519081834Z caller=index_set.go:107 msg="finished uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.519123893Z caller=index_set.go:186 msg="cleaning up unwanted indexes from table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:43.519388168Z caller=module_service.go:120 msg="module stopped" module=store
+ecommerce-loki  | level=error ts=2026-03-13T16:31:43.716840076Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:43.936572099Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:44.155904271Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:44.376416831Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:44.596074976Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:44.816152723Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:45.035459903Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:45.255659321Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:45.475315115Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:45.475659459Z caller=loki.go:615 msg="module failed" module=query-scheduler-ring error="starting module query-scheduler-ring: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:45.47584422Z caller=module_service.go:120 msg="module stopped" module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:31:45.476284562Z caller=modules.go:2369 msg="server stopped"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:45.476306919Z caller=module_service.go:120 msg="module stopped" module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:31:45.476381374Z caller=loki.go:599 msg="Loki stopped" running_time=2.219831863s
+ecommerce-loki  | failed services
+ecommerce-loki  | github.com/grafana/loki/v3/pkg/loki.(*Loki).Run
+ecommerce-loki  | 	/src/loki/pkg/loki/loki.go:657
+ecommerce-loki  | main.main
+ecommerce-loki  | 	/src/loki/cmd/loki/main.go:136
+ecommerce-loki  | runtime.main
+ecommerce-loki  | 	/usr/local/go/src/runtime/proc.go:283
+ecommerce-loki  | runtime.goexit
+ecommerce-loki  | 	/usr/local/go/src/runtime/asm_amd64.s:1700
+ecommerce-loki  | level=error ts=2026-03-13T16:31:45.476474959Z caller=log.go:223 msg="error running loki" err="failed services\ngithub.com/grafana/loki/v3/pkg/loki.(*Loki).Run\n\t/src/loki/pkg/loki/loki.go:657\nmain.main\n\t/src/loki/cmd/loki/main.go:136\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:283\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_amd64.s:1700"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.572789695Z caller=main.go:133 msg="Starting Loki" version="(version=3.6.7, branch=release-3.6.x, revision=7e1daf3a)"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.572868539Z caller=main.go:134 msg="Loading configuration file" filename=/etc/loki/local-config.yaml
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.581317351Z caller=server.go:386 msg="server listening on addresses" http=[::]:3100 grpc=[::]:9095
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.586756359Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.586729067Z caller=table_manager.go:300 index-store=boltdb-shipper-2024-01-01 msg="query readiness setup completed" duration=6.371µs distinct_users_len=0 distinct_users=
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.586795317Z caller=shipper.go:165 index-store=boltdb-shipper-2024-01-01 msg="starting index shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.586935691Z caller=table_manager.go:256 index-store=boltdb-shipper-2024-01-01 msg="loading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.587385799Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.587421066Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.587478266Z caller=index_client.go:91 index-store=boltdb-shipper-2024-01-01 msg="starting boltdb shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.587549216Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.587624794Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.587637735Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.593538591Z caller=worker.go:134 component=querier msg="Starting querier worker using query-scheduler and scheduler ring for addresses"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.599849684Z caller=mapper.go:47 msg="cleaning up mapped rules directory" path=/loki/rules-temp
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.62994919Z caller=module_service.go:82 msg=starting module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.630011042Z caller=module_service.go:82 msg=starting module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.630073989Z caller=module_service.go:82 msg=starting module=query-frontend-tripperware
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.630072678Z caller=module_service.go:82 msg=starting module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.630120541Z caller=module_service.go:82 msg=starting module=ring
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.630153912Z caller=module_service.go:82 msg=starting module=store
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.630161798Z caller=module_service.go:82 msg=starting module=query-scheduler-ring
+ecommerce-loki  | level=error ts=2026-03-13T16:31:46.631879328Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:46.632459557Z caller=loki.go:615 msg="module failed" module=ring error="starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:46.63255594Z caller=loki.go:615 msg="module failed" module=analytics error="failed to start analytics, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:46.632572774Z caller=loki.go:615 msg="module failed" module=rule-evaluator error="failed to start rule-evaluator, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:46.632581452Z caller=loki.go:615 msg="module failed" module=ingester-querier error="failed to start ingester-querier, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:46.632603365Z caller=loki.go:615 msg="module failed" module=ingester error="failed to start ingester, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:46.63261338Z caller=loki.go:615 msg="module failed" module=distributor error="failed to start distributor, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.632607294Z caller=module_service.go:120 msg="module stopped" module=query-frontend-tripperware
+ecommerce-loki  | level=error ts=2026-03-13T16:31:46.632630164Z caller=loki.go:615 msg="module failed" module=query-frontend error="failed to start query-frontend, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:46.632640605Z caller=loki.go:615 msg="module failed" module=query-scheduler error="failed to start query-scheduler, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:46.632650285Z caller=loki.go:615 msg="module failed" module=querier error="failed to start querier, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:46.632679146Z caller=loki.go:615 msg="module failed" module=ruler error="failed to start ruler, because it depends on module rule-evaluator, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:46.632694067Z caller=loki.go:615 msg="module failed" module=compactor error="failed to start compactor, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.632756597Z caller=module_service.go:120 msg="module stopped" module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.632790753Z caller=table_manager.go:116 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.632822378Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.632918314Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.632930861Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.632957714Z caller=table_manager.go:77 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.633022242Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.633038176Z caller=index_set.go:86 msg="uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.652521164Z caller=index_set.go:107 msg="finished uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.65256835Z caller=index_set.go:186 msg="cleaning up unwanted indexes from table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:46.652907087Z caller=module_service.go:120 msg="module stopped" module=store
+ecommerce-loki  | level=error ts=2026-03-13T16:31:46.902778104Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:47.173266879Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:47.443840431Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:47.71403604Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:47.985145893Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:48.25582145Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=warn ts=2026-03-13T16:31:48.258912717Z caller=logging.go:144 orgID=fake msg="POST /loki/api/v1/push (500) 1.077329ms Response: \"empty ring\\n\""
+ecommerce-loki  | level=error ts=2026-03-13T16:31:48.526553053Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:48.79731319Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:49.067809292Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:49.068004278Z caller=loki.go:615 msg="module failed" module=query-scheduler-ring error="starting module query-scheduler-ring: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:49.068169727Z caller=module_service.go:120 msg="module stopped" module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:31:49.068831932Z caller=modules.go:2369 msg="server stopped"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:49.068861335Z caller=module_service.go:120 msg="module stopped" module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:31:49.068884355Z caller=loki.go:599 msg="Loki stopped" running_time=2.670640236s
+ecommerce-loki  | failed services
+ecommerce-loki  | github.com/grafana/loki/v3/pkg/loki.(*Loki).Run
+ecommerce-loki  | 	/src/loki/pkg/loki/loki.go:657
+ecommerce-loki  | main.main
+ecommerce-loki  | 	/src/loki/cmd/loki/main.go:136
+ecommerce-loki  | runtime.main
+ecommerce-loki  | 	/usr/local/go/src/runtime/proc.go:283
+ecommerce-loki  | runtime.goexit
+ecommerce-loki  | 	/usr/local/go/src/runtime/asm_amd64.s:1700
+ecommerce-loki  | level=error ts=2026-03-13T16:31:49.069029916Z caller=log.go:223 msg="error running loki" err="failed services\ngithub.com/grafana/loki/v3/pkg/loki.(*Loki).Run\n\t/src/loki/pkg/loki/loki.go:657\nmain.main\n\t/src/loki/cmd/loki/main.go:136\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:283\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_amd64.s:1700"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.183158107Z caller=main.go:133 msg="Starting Loki" version="(version=3.6.7, branch=release-3.6.x, revision=7e1daf3a)"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.183227827Z caller=main.go:134 msg="Loading configuration file" filename=/etc/loki/local-config.yaml
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.191915197Z caller=server.go:386 msg="server listening on addresses" http=[::]:3100 grpc=[::]:9095
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.198384576Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.198598417Z caller=table_manager.go:300 index-store=boltdb-shipper-2024-01-01 msg="query readiness setup completed" duration=3.417µs distinct_users_len=0 distinct_users=
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.198785428Z caller=shipper.go:165 index-store=boltdb-shipper-2024-01-01 msg="starting index shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.198989091Z caller=table_manager.go:256 index-store=boltdb-shipper-2024-01-01 msg="loading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.199647122Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.199685006Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.199762302Z caller=index_client.go:91 index-store=boltdb-shipper-2024-01-01 msg="starting boltdb shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.199903356Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.199975197Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.199984256Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.207699744Z caller=mapper.go:47 msg="cleaning up mapped rules directory" path=/loki/rules-temp
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.208900295Z caller=worker.go:134 component=querier msg="Starting querier worker using query-scheduler and scheduler ring for addresses"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.237382148Z caller=module_service.go:82 msg=starting module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.237439486Z caller=module_service.go:82 msg=starting module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.237663691Z caller=module_service.go:82 msg=starting module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.237663376Z caller=module_service.go:82 msg=starting module=query-frontend-tripperware
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.23770628Z caller=module_service.go:82 msg=starting module=store
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.237704157Z caller=module_service.go:82 msg=starting module=ring
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.237719888Z caller=module_service.go:82 msg=starting module=query-scheduler-ring
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.239461689Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.239836506Z caller=loki.go:615 msg="module failed" module=ring error="starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.239920418Z caller=loki.go:615 msg="module failed" module=query-scheduler error="failed to start query-scheduler, because it depends on module query-scheduler-ring, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.239936701Z caller=loki.go:615 msg="module failed" module=rule-evaluator error="failed to start rule-evaluator, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.23994734Z caller=loki.go:615 msg="module failed" module=ruler error="failed to start ruler, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.239967679Z caller=loki.go:615 msg="module failed" module=distributor error="failed to start distributor, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.240010401Z caller=loki.go:615 msg="module failed" module=ingester-querier error="failed to start ingester-querier, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.240048514Z caller=loki.go:615 msg="module failed" module=querier error="failed to start querier, because it depends on module ingester-querier, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.240059228Z caller=loki.go:615 msg="module failed" module=ingester error="failed to start ingester, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.240068098Z caller=loki.go:615 msg="module failed" module=analytics error="failed to start analytics, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.240079015Z caller=loki.go:615 msg="module failed" module=compactor error="failed to start compactor, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.240088306Z caller=loki.go:615 msg="module failed" module=query-frontend error="failed to start query-frontend, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.240085525Z caller=module_service.go:120 msg="module stopped" module=query-frontend-tripperware
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.24008866Z caller=table_manager.go:116 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.240167839Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.240217166Z caller=module_service.go:120 msg="module stopped" module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.240237204Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.240247893Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.24027576Z caller=table_manager.go:77 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.240320086Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.240330269Z caller=index_set.go:86 msg="uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.260387084Z caller=index_set.go:107 msg="finished uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.260421132Z caller=index_set.go:186 msg="cleaning up unwanted indexes from table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:50.260676266Z caller=module_service.go:120 msg="module stopped" module=store
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.360460233Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.481367111Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.602552127Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.72329736Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.843971151Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:50.964717971Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:51.085789806Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:51.205994142Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:51.326838229Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:51.327138761Z caller=loki.go:615 msg="module failed" module=query-scheduler-ring error="starting module query-scheduler-ring: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:51.327283515Z caller=module_service.go:120 msg="module stopped" module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:31:51.327686189Z caller=modules.go:2369 msg="server stopped"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:51.327707003Z caller=module_service.go:120 msg="module stopped" module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:31:51.327728501Z caller=loki.go:599 msg="Loki stopped" running_time=1.283632234s
+ecommerce-loki  | failed services
+ecommerce-loki  | github.com/grafana/loki/v3/pkg/loki.(*Loki).Run
+ecommerce-loki  | 	/src/loki/pkg/loki/loki.go:657
+ecommerce-loki  | main.main
+ecommerce-loki  | 	/src/loki/cmd/loki/main.go:136
+ecommerce-loki  | runtime.main
+ecommerce-loki  | 	/usr/local/go/src/runtime/proc.go:283
+ecommerce-loki  | runtime.goexit
+ecommerce-loki  | 	/usr/local/go/src/runtime/asm_amd64.s:1700
+ecommerce-loki  | level=error ts=2026-03-13T16:31:51.32785462Z caller=log.go:223 msg="error running loki" err="failed services\ngithub.com/grafana/loki/v3/pkg/loki.(*Loki).Run\n\t/src/loki/pkg/loki/loki.go:657\nmain.main\n\t/src/loki/cmd/loki/main.go:136\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:283\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_amd64.s:1700"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.864715649Z caller=main.go:133 msg="Starting Loki" version="(version=3.6.7, branch=release-3.6.x, revision=7e1daf3a)"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.864842816Z caller=main.go:134 msg="Loading configuration file" filename=/etc/loki/local-config.yaml
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.872471281Z caller=server.go:386 msg="server listening on addresses" http=[::]:3100 grpc=[::]:9095
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.880760479Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.880870536Z caller=table_manager.go:300 index-store=boltdb-shipper-2024-01-01 msg="query readiness setup completed" duration=3.637µs distinct_users_len=0 distinct_users=
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.880967879Z caller=shipper.go:165 index-store=boltdb-shipper-2024-01-01 msg="starting index shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.881106336Z caller=table_manager.go:256 index-store=boltdb-shipper-2024-01-01 msg="loading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.881532606Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.881557624Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.881607906Z caller=index_client.go:91 index-store=boltdb-shipper-2024-01-01 msg="starting boltdb shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.881737208Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.88182423Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.881839091Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.884764099Z caller=mapper.go:47 msg="cleaning up mapped rules directory" path=/loki/rules-temp
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.887283591Z caller=worker.go:134 component=querier msg="Starting querier worker using query-scheduler and scheduler ring for addresses"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.922084524Z caller=module_service.go:82 msg=starting module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.922234284Z caller=module_service.go:82 msg=starting module=query-frontend-tripperware
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.922282856Z caller=module_service.go:82 msg=starting module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.922318136Z caller=module_service.go:82 msg=starting module=store
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.92233989Z caller=module_service.go:82 msg=starting module=ring
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.922369595Z caller=module_service.go:82 msg=starting module=query-scheduler-ring
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.922012669Z caller=module_service.go:82 msg=starting module=cache-generation-loader
+ecommerce-loki  | level=error ts=2026-03-13T16:31:52.925055442Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:52.925295195Z caller=loki.go:615 msg="module failed" module=ring error="starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:52.925354244Z caller=loki.go:615 msg="module failed" module=compactor error="failed to start compactor, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:52.925367289Z caller=loki.go:615 msg="module failed" module=ingester-querier error="failed to start ingester-querier, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:52.925383249Z caller=loki.go:615 msg="module failed" module=analytics error="failed to start analytics, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.925409976Z caller=module_service.go:120 msg="module stopped" module=query-frontend-tripperware
+ecommerce-loki  | level=error ts=2026-03-13T16:31:52.925489701Z caller=loki.go:615 msg="module failed" module=rule-evaluator error="failed to start rule-evaluator, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:52.925517739Z caller=loki.go:615 msg="module failed" module=query-scheduler error="failed to start query-scheduler, because it depends on module query-scheduler-ring, which has failed: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.925497804Z caller=table_manager.go:116 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:52.925538625Z caller=loki.go:615 msg="module failed" module=query-frontend error="failed to start query-frontend, because it depends on module query-scheduler, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:52.92554876Z caller=loki.go:615 msg="module failed" module=ingester error="failed to start ingester, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.925551443Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:52.925573285Z caller=loki.go:615 msg="module failed" module=querier error="failed to start querier, because it depends on module ingester-querier, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:52.925583817Z caller=loki.go:615 msg="module failed" module=ruler error="failed to start ruler, because it depends on module rule-evaluator, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:52.925592486Z caller=loki.go:615 msg="module failed" module=distributor error="failed to start distributor, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.925619419Z caller=module_service.go:120 msg="module stopped" module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.92564239Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.925653122Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.925679675Z caller=table_manager.go:77 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.925750733Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.925767242Z caller=index_set.go:86 msg="uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.94896127Z caller=index_set.go:107 msg="finished uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.949009811Z caller=index_set.go:186 msg="cleaning up unwanted indexes from table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:52.949350559Z caller=module_service.go:120 msg="module stopped" module=store
+ecommerce-loki  | level=error ts=2026-03-13T16:31:53.47221656Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:54.019228046Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:54.566398612Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:55.113686743Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:55.660129083Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:56.207217405Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=warn ts=2026-03-13T16:31:56.669470539Z caller=logging.go:144 orgID=fake msg="POST /loki/api/v1/push (500) 1.297564ms Response: \"empty ring\\n\""
+ecommerce-loki  | level=error ts=2026-03-13T16:31:56.75473591Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:57.301447586Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:57.848823111Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:31:57.849232362Z caller=loki.go:615 msg="module failed" module=query-scheduler-ring error="starting module query-scheduler-ring: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:57.84933385Z caller=module_service.go:120 msg="module stopped" module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:31:57.85015935Z caller=modules.go:2369 msg="server stopped"
+ecommerce-loki  | level=info ts=2026-03-13T16:31:57.850193493Z caller=module_service.go:120 msg="module stopped" module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:31:57.850223322Z caller=loki.go:599 msg="Loki stopped" running_time=5.171754206s
+ecommerce-loki  | failed services
+ecommerce-loki  | github.com/grafana/loki/v3/pkg/loki.(*Loki).Run
+ecommerce-loki  | 	/src/loki/pkg/loki/loki.go:657
+ecommerce-loki  | main.main
+ecommerce-loki  | 	/src/loki/cmd/loki/main.go:136
+ecommerce-loki  | runtime.main
+ecommerce-loki  | 	/usr/local/go/src/runtime/proc.go:283
+ecommerce-loki  | runtime.goexit
+ecommerce-loki  | 	/usr/local/go/src/runtime/asm_amd64.s:1700
+ecommerce-loki  | level=error ts=2026-03-13T16:31:57.85038803Z caller=log.go:223 msg="error running loki" err="failed services\ngithub.com/grafana/loki/v3/pkg/loki.(*Loki).Run\n\t/src/loki/pkg/loki/loki.go:657\nmain.main\n\t/src/loki/cmd/loki/main.go:136\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:283\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_amd64.s:1700"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.186077794Z caller=main.go:133 msg="Starting Loki" version="(version=3.6.7, branch=release-3.6.x, revision=7e1daf3a)"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.186152326Z caller=main.go:134 msg="Loading configuration file" filename=/etc/loki/local-config.yaml
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.195474247Z caller=server.go:386 msg="server listening on addresses" http=[::]:3100 grpc=[::]:9095
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.202225328Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.202342242Z caller=table_manager.go:300 index-store=boltdb-shipper-2024-01-01 msg="query readiness setup completed" duration=2.412µs distinct_users_len=0 distinct_users=
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.202402538Z caller=shipper.go:165 index-store=boltdb-shipper-2024-01-01 msg="starting index shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.202500712Z caller=table_manager.go:256 index-store=boltdb-shipper-2024-01-01 msg="loading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.202962104Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.202994892Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.20305016Z caller=index_client.go:91 index-store=boltdb-shipper-2024-01-01 msg="starting boltdb shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.203233915Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.20331014Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.203325374Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.208171589Z caller=worker.go:134 component=querier msg="Starting querier worker using query-scheduler and scheduler ring for addresses"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.211298865Z caller=mapper.go:47 msg="cleaning up mapped rules directory" path=/loki/rules-temp
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.252392853Z caller=module_service.go:82 msg=starting module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.252406515Z caller=module_service.go:82 msg=starting module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.252487012Z caller=module_service.go:82 msg=starting module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.252485305Z caller=module_service.go:82 msg=starting module=query-frontend-tripperware
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.252521367Z caller=module_service.go:82 msg=starting module=query-scheduler-ring
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.252632775Z caller=module_service.go:82 msg=starting module=store
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.252644112Z caller=module_service.go:82 msg=starting module=ring
+ecommerce-loki  | level=error ts=2026-03-13T16:32:00.254875177Z caller=loki.go:615 msg="module failed" module=ring error="starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:00.254903637Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:00.255092569Z caller=loki.go:615 msg="module failed" module=distributor error="failed to start distributor, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:00.255125778Z caller=loki.go:615 msg="module failed" module=ingester-querier error="failed to start ingester-querier, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:00.255142648Z caller=loki.go:615 msg="module failed" module=query-scheduler error="failed to start query-scheduler, because it depends on module query-scheduler-ring, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:00.255172059Z caller=loki.go:615 msg="module failed" module=querier error="failed to start querier, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:00.255186067Z caller=loki.go:615 msg="module failed" module=query-frontend error="failed to start query-frontend, because it depends on module query-scheduler, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:00.255195213Z caller=loki.go:615 msg="module failed" module=compactor error="failed to start compactor, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:00.255203352Z caller=loki.go:615 msg="module failed" module=analytics error="failed to start analytics, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:00.255212757Z caller=loki.go:615 msg="module failed" module=ingester error="failed to start ingester, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:00.255235271Z caller=loki.go:615 msg="module failed" module=ruler error="failed to start ruler, because it depends on module rule-evaluator, which has failed: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.255253289Z caller=module_service.go:120 msg="module stopped" module=query-frontend-tripperware
+ecommerce-loki  | level=error ts=2026-03-13T16:32:00.255266495Z caller=loki.go:615 msg="module failed" module=rule-evaluator error="failed to start rule-evaluator, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.255688205Z caller=table_manager.go:116 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.255719969Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.255793716Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.255803928Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.255831991Z caller=table_manager.go:77 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.255849611Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.255861804Z caller=index_set.go:86 msg="uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.255898355Z caller=module_service.go:120 msg="module stopped" module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.274931949Z caller=index_set.go:107 msg="finished uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.274980007Z caller=index_set.go:186 msg="cleaning up unwanted indexes from table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:00.275302425Z caller=module_service.go:120 msg="module stopped" module=store
+ecommerce-loki  | level=error ts=2026-03-13T16:32:01.056311396Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:01.856649956Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:02.657258475Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:03.457860158Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:04.25820048Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:05.058231351Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:05.858931213Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:06.659920978Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:07.460760198Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:07.461329269Z caller=loki.go:615 msg="module failed" module=query-scheduler-ring error="starting module query-scheduler-ring: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:07.461621438Z caller=module_service.go:120 msg="module stopped" module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:32:07.462093737Z caller=modules.go:2369 msg="server stopped"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:07.462127072Z caller=module_service.go:120 msg="module stopped" module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:32:07.462278357Z caller=loki.go:599 msg="Loki stopped" running_time=7.461946594s
+ecommerce-loki  | failed services
+ecommerce-loki  | github.com/grafana/loki/v3/pkg/loki.(*Loki).Run
+ecommerce-loki  | 	/src/loki/pkg/loki/loki.go:657
+ecommerce-loki  | main.main
+ecommerce-loki  | 	/src/loki/cmd/loki/main.go:136
+ecommerce-loki  | runtime.main
+ecommerce-loki  | 	/usr/local/go/src/runtime/proc.go:283
+ecommerce-loki  | runtime.goexit
+ecommerce-loki  | 	/usr/local/go/src/runtime/asm_amd64.s:1700
+ecommerce-loki  | level=error ts=2026-03-13T16:32:07.462431301Z caller=log.go:223 msg="error running loki" err="failed services\ngithub.com/grafana/loki/v3/pkg/loki.(*Loki).Run\n\t/src/loki/pkg/loki/loki.go:657\nmain.main\n\t/src/loki/cmd/loki/main.go:136\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:283\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_amd64.s:1700"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.466095635Z caller=main.go:133 msg="Starting Loki" version="(version=3.6.7, branch=release-3.6.x, revision=7e1daf3a)"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.46623419Z caller=main.go:134 msg="Loading configuration file" filename=/etc/loki/local-config.yaml
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.478050925Z caller=server.go:386 msg="server listening on addresses" http=[::]:3100 grpc=[::]:9095
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.48585717Z caller=table_manager.go:300 index-store=boltdb-shipper-2024-01-01 msg="query readiness setup completed" duration=4.008µs distinct_users_len=0 distinct_users=
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.485931578Z caller=shipper.go:165 index-store=boltdb-shipper-2024-01-01 msg="starting index shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.485986726Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.486072193Z caller=table_manager.go:256 index-store=boltdb-shipper-2024-01-01 msg="loading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.486531514Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.486566989Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.486776961Z caller=index_client.go:91 index-store=boltdb-shipper-2024-01-01 msg="starting boltdb shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.486918752Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.48699207Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.487002494Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.499234003Z caller=worker.go:134 component=querier msg="Starting querier worker using query-scheduler and scheduler ring for addresses"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.501432902Z caller=mapper.go:47 msg="cleaning up mapped rules directory" path=/loki/rules-temp
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.559918105Z caller=module_service.go:82 msg=starting module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.560047077Z caller=module_service.go:82 msg=starting module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.563448068Z caller=module_service.go:82 msg=starting module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.563482655Z caller=module_service.go:82 msg=starting module=query-frontend-tripperware
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.563533603Z caller=module_service.go:82 msg=starting module=query-scheduler-ring
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.563635698Z caller=module_service.go:82 msg=starting module=ring
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.565730544Z caller=module_service.go:82 msg=starting module=store
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.569765969Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.573023851Z caller=module_service.go:120 msg="module stopped" module=query-frontend-tripperware
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.574385737Z caller=module_service.go:120 msg="module stopped" module=cache-generation-loader
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.572703648Z caller=loki.go:615 msg="module failed" module=ring error="starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.574584409Z caller=loki.go:615 msg="module failed" module=rule-evaluator error="failed to start rule-evaluator, because it depends on module ingester-querier, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.574660712Z caller=loki.go:615 msg="module failed" module=distributor error="failed to start distributor, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.57566076Z caller=loki.go:615 msg="module failed" module=ruler error="failed to start ruler, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.575693697Z caller=loki.go:615 msg="module failed" module=compactor error="failed to start compactor, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.575705085Z caller=loki.go:615 msg="module failed" module=ingester error="failed to start ingester, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.575714953Z caller=loki.go:615 msg="module failed" module=query-frontend error="failed to start query-frontend, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.575724535Z caller=loki.go:615 msg="module failed" module=query-scheduler error="failed to start query-scheduler, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.575738878Z caller=loki.go:615 msg="module failed" module=ingester-querier error="failed to start ingester-querier, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.575749502Z caller=loki.go:615 msg="module failed" module=querier error="failed to start querier, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.575757604Z caller=loki.go:615 msg="module failed" module=analytics error="failed to start analytics, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.576212647Z caller=table_manager.go:116 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.57629519Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.576664114Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.576684056Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.576711439Z caller=table_manager.go:77 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.576769762Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.576781197Z caller=index_set.go:86 msg="uploading table index_20525"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.592279796Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.604785559Z caller=index_set.go:107 msg="finished uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.60483352Z caller=index_set.go:186 msg="cleaning up unwanted indexes from table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.605218116Z caller=module_service.go:120 msg="module stopped" module=store
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.615881895Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.638473047Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.661036174Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.683757577Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.706444686Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.729101694Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.751577491Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.774294609Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.774527397Z caller=loki.go:615 msg="module failed" module=query-scheduler-ring error="starting module query-scheduler-ring: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.774975134Z caller=module_service.go:120 msg="module stopped" module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.775471573Z caller=modules.go:2369 msg="server stopped"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.775498906Z caller=module_service.go:120 msg="module stopped" module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:32:11.775520605Z caller=loki.go:599 msg="Loki stopped" running_time=507.113884ms
+ecommerce-loki  | failed services
+ecommerce-loki  | github.com/grafana/loki/v3/pkg/loki.(*Loki).Run
+ecommerce-loki  | 	/src/loki/pkg/loki/loki.go:657
+ecommerce-loki  | main.main
+ecommerce-loki  | 	/src/loki/cmd/loki/main.go:136
+ecommerce-loki  | runtime.main
+ecommerce-loki  | 	/usr/local/go/src/runtime/proc.go:283
+ecommerce-loki  | runtime.goexit
+ecommerce-loki  | 	/usr/local/go/src/runtime/asm_amd64.s:1700
+ecommerce-loki  | level=error ts=2026-03-13T16:32:11.775647689Z caller=log.go:223 msg="error running loki" err="failed services\ngithub.com/grafana/loki/v3/pkg/loki.(*Loki).Run\n\t/src/loki/pkg/loki/loki.go:657\nmain.main\n\t/src/loki/cmd/loki/main.go:136\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:283\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_amd64.s:1700"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:18.965929706Z caller=main.go:133 msg="Starting Loki" version="(version=3.6.7, branch=release-3.6.x, revision=7e1daf3a)"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:18.966046251Z caller=main.go:134 msg="Loading configuration file" filename=/etc/loki/local-config.yaml
+ecommerce-loki  | level=info ts=2026-03-13T16:32:18.976642026Z caller=server.go:386 msg="server listening on addresses" http=[::]:3100 grpc=[::]:9095
+ecommerce-loki  | level=info ts=2026-03-13T16:32:18.984790865Z caller=table_manager.go:300 index-store=boltdb-shipper-2024-01-01 msg="query readiness setup completed" duration=2.436µs distinct_users_len=0 distinct_users=
+ecommerce-loki  | level=info ts=2026-03-13T16:32:18.984834821Z caller=shipper.go:165 index-store=boltdb-shipper-2024-01-01 msg="starting index shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:18.984894205Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:18.984952334Z caller=table_manager.go:256 index-store=boltdb-shipper-2024-01-01 msg="loading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:18.985299683Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:18.985321315Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:18.985387237Z caller=index_client.go:91 index-store=boltdb-shipper-2024-01-01 msg="starting boltdb shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:18.985508898Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:18.985565087Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:18.985574385Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:18.988158965Z caller=worker.go:134 component=querier msg="Starting querier worker using query-scheduler and scheduler ring for addresses"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:18.991362504Z caller=mapper.go:47 msg="cleaning up mapped rules directory" path=/loki/rules-temp
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.024523001Z caller=module_service.go:82 msg=starting module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.024686612Z caller=module_service.go:82 msg=starting module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.024735139Z caller=module_service.go:82 msg=starting module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.024734785Z caller=module_service.go:82 msg=starting module=query-frontend-tripperware
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.024753939Z caller=module_service.go:82 msg=starting module=store
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.024776591Z caller=module_service.go:82 msg=starting module=query-scheduler-ring
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.024795041Z caller=module_service.go:82 msg=starting module=ring
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.026397664Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.026747671Z caller=loki.go:615 msg="module failed" module=ring error="starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.02681694Z caller=loki.go:615 msg="module failed" module=query-scheduler error="failed to start query-scheduler, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.026829765Z caller=loki.go:615 msg="module failed" module=compactor error="failed to start compactor, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.026839642Z caller=loki.go:615 msg="module failed" module=analytics error="failed to start analytics, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.026896981Z caller=loki.go:615 msg="module failed" module=distributor error="failed to start distributor, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.026913521Z caller=loki.go:615 msg="module failed" module=ingester-querier error="failed to start ingester-querier, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.026924496Z caller=loki.go:615 msg="module failed" module=query-frontend error="failed to start query-frontend, because it depends on module query-scheduler-ring, which has failed: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.02692382Z caller=module_service.go:120 msg="module stopped" module=query-frontend-tripperware
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.026948822Z caller=loki.go:615 msg="module failed" module=ingester error="failed to start ingester, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.026962304Z caller=loki.go:615 msg="module failed" module=querier error="failed to start querier, because it depends on module query-scheduler, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.026970176Z caller=loki.go:615 msg="module failed" module=rule-evaluator error="failed to start rule-evaluator, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.026988453Z caller=loki.go:615 msg="module failed" module=ruler error="failed to start ruler, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.0270822Z caller=module_service.go:120 msg="module stopped" module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.027072388Z caller=table_manager.go:116 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.027144402Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.027218858Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.027365087Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.027399755Z caller=table_manager.go:77 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.027458041Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.027470233Z caller=index_set.go:86 msg="uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.066825098Z caller=index_set.go:107 msg="finished uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.066881668Z caller=index_set.go:186 msg="cleaning up unwanted indexes from table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:19.067208999Z caller=module_service.go:120 msg="module stopped" module=store
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.169818522Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.307870578Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.446344813Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.585015714Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.71947205Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.857596424Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:19.996032366Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:20.135337305Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=warn ts=2026-03-13T16:32:20.221810716Z caller=logging.go:144 orgID=fake msg="POST /loki/api/v1/push (500) 1.723317ms Response: \"empty ring\\n\""
+ecommerce-loki  | level=error ts=2026-03-13T16:32:20.273450763Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:20.274641354Z caller=loki.go:615 msg="module failed" module=query-scheduler-ring error="starting module query-scheduler-ring: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:20.27491035Z caller=module_service.go:120 msg="module stopped" module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:32:20.275863879Z caller=modules.go:2369 msg="server stopped"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:20.275905101Z caller=module_service.go:120 msg="module stopped" module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:32:20.275966759Z caller=loki.go:599 msg="Loki stopped" running_time=1.488984095s
+ecommerce-loki  | failed services
+ecommerce-loki  | github.com/grafana/loki/v3/pkg/loki.(*Loki).Run
+ecommerce-loki  | 	/src/loki/pkg/loki/loki.go:657
+ecommerce-loki  | main.main
+ecommerce-loki  | 	/src/loki/cmd/loki/main.go:136
+ecommerce-loki  | runtime.main
+ecommerce-loki  | 	/usr/local/go/src/runtime/proc.go:283
+ecommerce-loki  | runtime.goexit
+ecommerce-loki  | 	/usr/local/go/src/runtime/asm_amd64.s:1700
+ecommerce-loki  | level=error ts=2026-03-13T16:32:20.276139476Z caller=log.go:223 msg="error running loki" err="failed services\ngithub.com/grafana/loki/v3/pkg/loki.(*Loki).Run\n\t/src/loki/pkg/loki/loki.go:657\nmain.main\n\t/src/loki/cmd/loki/main.go:136\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:283\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_amd64.s:1700"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.886579411Z caller=main.go:133 msg="Starting Loki" version="(version=3.6.7, branch=release-3.6.x, revision=7e1daf3a)"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.886688519Z caller=main.go:134 msg="Loading configuration file" filename=/etc/loki/local-config.yaml
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.894634846Z caller=server.go:386 msg="server listening on addresses" http=[::]:3100 grpc=[::]:9095
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.904175468Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.904168017Z caller=table_manager.go:300 index-store=boltdb-shipper-2024-01-01 msg="query readiness setup completed" duration=8.028µs distinct_users_len=0 distinct_users=
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.904327715Z caller=shipper.go:165 index-store=boltdb-shipper-2024-01-01 msg="starting index shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.904544429Z caller=table_manager.go:256 index-store=boltdb-shipper-2024-01-01 msg="loading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.905046814Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.905083278Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.905154478Z caller=index_client.go:91 index-store=boltdb-shipper-2024-01-01 msg="starting boltdb shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.905253961Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.905319325Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.90533058Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.90996641Z caller=mapper.go:47 msg="cleaning up mapped rules directory" path=/loki/rules-temp
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.918141417Z caller=worker.go:134 component=querier msg="Starting querier worker using query-scheduler and scheduler ring for addresses"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.956552776Z caller=module_service.go:82 msg=starting module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.956606841Z caller=module_service.go:82 msg=starting module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.956839651Z caller=module_service.go:82 msg=starting module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.956875968Z caller=module_service.go:82 msg=starting module=query-frontend-tripperware
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.956901372Z caller=module_service.go:82 msg=starting module=store
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.956919766Z caller=module_service.go:82 msg=starting module=ring
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.956987818Z caller=module_service.go:82 msg=starting module=query-scheduler-ring
+ecommerce-loki  | level=error ts=2026-03-13T16:32:33.95943681Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:33.959645872Z caller=loki.go:615 msg="module failed" module=ring error="starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:33.959710795Z caller=loki.go:615 msg="module failed" module=query-scheduler error="failed to start query-scheduler, because it depends on module query-scheduler-ring, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:33.959766617Z caller=loki.go:615 msg="module failed" module=rule-evaluator error="failed to start rule-evaluator, because it depends on module ingester-querier, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:33.959795657Z caller=loki.go:615 msg="module failed" module=ingester error="failed to start ingester, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.959885754Z caller=module_service.go:120 msg="module stopped" module=query-frontend-tripperware
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.959992552Z caller=module_service.go:120 msg="module stopped" module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.960048703Z caller=table_manager.go:116 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.960073318Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:33.959863905Z caller=loki.go:615 msg="module failed" module=querier error="failed to start querier, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:33.960109724Z caller=loki.go:615 msg="module failed" module=distributor error="failed to start distributor, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:33.960128997Z caller=loki.go:615 msg="module failed" module=analytics error="failed to start analytics, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:33.960140928Z caller=loki.go:615 msg="module failed" module=ruler error="failed to start ruler, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:33.960152231Z caller=loki.go:615 msg="module failed" module=query-frontend error="failed to start query-frontend, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:33.960162147Z caller=loki.go:615 msg="module failed" module=compactor error="failed to start compactor, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.96028738Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.960307703Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:33.960172708Z caller=loki.go:615 msg="module failed" module=ingester-querier error="failed to start ingester-querier, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.960331899Z caller=table_manager.go:77 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.960379805Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.960392363Z caller=index_set.go:86 msg="uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.984297981Z caller=index_set.go:107 msg="finished uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.984335202Z caller=index_set.go:186 msg="cleaning up unwanted indexes from table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:33.98459389Z caller=module_service.go:120 msg="module stopped" module=store
+ecommerce-loki  | level=error ts=2026-03-13T16:32:34.909781395Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:35.860499111Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:36.811150115Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:37.761004026Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:38.711778399Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:39.661642845Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:40.612561551Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:41.563750319Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:42.513742475Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:32:42.514316246Z caller=loki.go:615 msg="module failed" module=query-scheduler-ring error="starting module query-scheduler-ring: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:42.514514285Z caller=module_service.go:120 msg="module stopped" module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:32:42.515273543Z caller=modules.go:2369 msg="server stopped"
+ecommerce-loki  | level=info ts=2026-03-13T16:32:42.515298558Z caller=module_service.go:120 msg="module stopped" module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:32:42.515359804Z caller=loki.go:599 msg="Loki stopped" running_time=8.812052704s
+ecommerce-loki  | failed services
+ecommerce-loki  | github.com/grafana/loki/v3/pkg/loki.(*Loki).Run
+ecommerce-loki  | 	/src/loki/pkg/loki/loki.go:657
+ecommerce-loki  | main.main
+ecommerce-loki  | 	/src/loki/cmd/loki/main.go:136
+ecommerce-loki  | runtime.main
+ecommerce-loki  | 	/usr/local/go/src/runtime/proc.go:283
+ecommerce-loki  | runtime.goexit
+ecommerce-loki  | 	/usr/local/go/src/runtime/asm_amd64.s:1700
+ecommerce-loki  | level=error ts=2026-03-13T16:32:42.515511863Z caller=log.go:223 msg="error running loki" err="failed services\ngithub.com/grafana/loki/v3/pkg/loki.(*Loki).Run\n\t/src/loki/pkg/loki/loki.go:657\nmain.main\n\t/src/loki/cmd/loki/main.go:136\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:283\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_amd64.s:1700"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.722058592Z caller=main.go:133 msg="Starting Loki" version="(version=3.6.7, branch=release-3.6.x, revision=7e1daf3a)"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.722154827Z caller=main.go:134 msg="Loading configuration file" filename=/etc/loki/local-config.yaml
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.729506217Z caller=server.go:386 msg="server listening on addresses" http=[::]:3100 grpc=[::]:9095
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.734339071Z caller=table_manager.go:300 index-store=boltdb-shipper-2024-01-01 msg="query readiness setup completed" duration=5.93µs distinct_users_len=0 distinct_users=
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.734415591Z caller=shipper.go:165 index-store=boltdb-shipper-2024-01-01 msg="starting index shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.734441263Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.734588768Z caller=table_manager.go:256 index-store=boltdb-shipper-2024-01-01 msg="loading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.734971758Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.734998689Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.735054914Z caller=index_client.go:91 index-store=boltdb-shipper-2024-01-01 msg="starting boltdb shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.735211142Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.735260832Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.735270224Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.743151399Z caller=worker.go:134 component=querier msg="Starting querier worker using query-scheduler and scheduler ring for addresses"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.745279216Z caller=mapper.go:47 msg="cleaning up mapped rules directory" path=/loki/rules-temp
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.773844273Z caller=module_service.go:82 msg=starting module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.773924245Z caller=module_service.go:82 msg=starting module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.774054641Z caller=module_service.go:82 msg=starting module=query-frontend-tripperware
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.774079996Z caller=module_service.go:82 msg=starting module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.774126178Z caller=module_service.go:82 msg=starting module=ring
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.774199558Z caller=module_service.go:82 msg=starting module=query-scheduler-ring
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.774257417Z caller=module_service.go:82 msg=starting module=store
+ecommerce-loki  | level=error ts=2026-03-13T16:33:08.776415895Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:08.776636046Z caller=loki.go:615 msg="module failed" module=ring error="starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:08.776696881Z caller=loki.go:615 msg="module failed" module=ruler error="failed to start ruler, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:08.776729727Z caller=loki.go:615 msg="module failed" module=distributor error="failed to start distributor, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:08.776759175Z caller=loki.go:615 msg="module failed" module=ingester-querier error="failed to start ingester-querier, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:08.776786283Z caller=loki.go:615 msg="module failed" module=query-scheduler error="failed to start query-scheduler, because it depends on module query-scheduler-ring, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:08.776793947Z caller=loki.go:615 msg="module failed" module=querier error="failed to start querier, because it depends on module ingester-querier, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:08.776807324Z caller=loki.go:615 msg="module failed" module=query-frontend error="failed to start query-frontend, because it depends on module query-scheduler, which has failed: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.77681372Z caller=module_service.go:120 msg="module stopped" module=query-frontend-tripperware
+ecommerce-loki  | level=error ts=2026-03-13T16:33:08.776819917Z caller=loki.go:615 msg="module failed" module=ingester error="failed to start ingester, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:08.776831419Z caller=loki.go:615 msg="module failed" module=rule-evaluator error="failed to start rule-evaluator, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.776893909Z caller=table_manager.go:116 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.776941785Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.77696411Z caller=module_service.go:120 msg="module stopped" module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.776977876Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:08.776992986Z caller=loki.go:615 msg="module failed" module=compactor error="failed to start compactor, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.777005193Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:08.777012289Z caller=loki.go:615 msg="module failed" module=analytics error="failed to start analytics, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.777038908Z caller=table_manager.go:77 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.777052116Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.777062142Z caller=index_set.go:86 msg="uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.797439845Z caller=index_set.go:107 msg="finished uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.797480328Z caller=index_set.go:186 msg="cleaning up unwanted indexes from table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:08.797708674Z caller=module_service.go:120 msg="module stopped" module=store
+ecommerce-loki  | level=error ts=2026-03-13T16:33:09.444022062Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:10.111259415Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:10.778604672Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=warn ts=2026-03-13T16:33:11.226128488Z caller=logging.go:144 orgID=fake msg="POST /loki/api/v1/push (500) 3.247055ms Response: \"empty ring\\n\""
+ecommerce-loki  | level=error ts=2026-03-13T16:33:11.446628782Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:12.114690358Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:12.782942115Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:13.450906383Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:14.119083405Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:14.786355881Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:33:14.786665364Z caller=loki.go:615 msg="module failed" module=query-scheduler-ring error="starting module query-scheduler-ring: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:14.786827068Z caller=module_service.go:120 msg="module stopped" module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:33:14.787779875Z caller=modules.go:2369 msg="server stopped"
+ecommerce-loki  | level=info ts=2026-03-13T16:33:14.787830224Z caller=module_service.go:120 msg="module stopped" module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:33:14.787863397Z caller=loki.go:599 msg="Loki stopped" running_time=6.199417644s
+ecommerce-loki  | failed services
+ecommerce-loki  | github.com/grafana/loki/v3/pkg/loki.(*Loki).Run
+ecommerce-loki  | 	/src/loki/pkg/loki/loki.go:657
+ecommerce-loki  | main.main
+ecommerce-loki  | 	/src/loki/cmd/loki/main.go:136
+ecommerce-loki  | runtime.main
+ecommerce-loki  | 	/usr/local/go/src/runtime/proc.go:283
+ecommerce-loki  | runtime.goexit
+ecommerce-loki  | 	/usr/local/go/src/runtime/asm_amd64.s:1700
+ecommerce-loki  | level=error ts=2026-03-13T16:33:14.787998302Z caller=log.go:223 msg="error running loki" err="failed services\ngithub.com/grafana/loki/v3/pkg/loki.(*Loki).Run\n\t/src/loki/pkg/loki/loki.go:657\nmain.main\n\t/src/loki/cmd/loki/main.go:136\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:283\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_amd64.s:1700"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.759229248Z caller=main.go:133 msg="Starting Loki" version="(version=3.6.7, branch=release-3.6.x, revision=7e1daf3a)"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.759414459Z caller=main.go:134 msg="Loading configuration file" filename=/etc/loki/local-config.yaml
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.769811746Z caller=server.go:386 msg="server listening on addresses" http=[::]:3100 grpc=[::]:9095
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.781005641Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.781228708Z caller=table_manager.go:300 index-store=boltdb-shipper-2024-01-01 msg="query readiness setup completed" duration=3.279µs distinct_users_len=0 distinct_users=
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.781363541Z caller=shipper.go:165 index-store=boltdb-shipper-2024-01-01 msg="starting index shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.781486697Z caller=table_manager.go:256 index-store=boltdb-shipper-2024-01-01 msg="loading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.781984724Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.782015053Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.782073654Z caller=index_client.go:91 index-store=boltdb-shipper-2024-01-01 msg="starting boltdb shipper in RW mode"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.782318067Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.782414332Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.782428476Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.789989063Z caller=worker.go:134 component=querier msg="Starting querier worker using query-scheduler and scheduler ring for addresses"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.790777718Z caller=mapper.go:47 msg="cleaning up mapped rules directory" path=/loki/rules-temp
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.825139718Z caller=module_service.go:82 msg=starting module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.825151763Z caller=module_service.go:82 msg=starting module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.82535125Z caller=module_service.go:82 msg=starting module=query-frontend-tripperware
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.825350386Z caller=module_service.go:82 msg=starting module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.825409651Z caller=module_service.go:82 msg=starting module=query-scheduler-ring
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.825430992Z caller=module_service.go:82 msg=starting module=ring
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.825474193Z caller=module_service.go:82 msg=starting module=store
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.828016389Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.828225898Z caller=loki.go:615 msg="module failed" module=ring error="starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.828283309Z caller=loki.go:615 msg="module failed" module=ingester-querier error="failed to start ingester-querier, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.828320016Z caller=loki.go:615 msg="module failed" module=querier error="failed to start querier, because it depends on module ingester-querier, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.828331937Z caller=loki.go:615 msg="module failed" module=rule-evaluator error="failed to start rule-evaluator, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.828342998Z caller=loki.go:615 msg="module failed" module=ruler error="failed to start ruler, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.828352849Z caller=loki.go:615 msg="module failed" module=analytics error="failed to start analytics, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.828364135Z caller=loki.go:615 msg="module failed" module=distributor error="failed to start distributor, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.828373834Z caller=loki.go:615 msg="module failed" module=ingester error="failed to start ingester, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.828383409Z caller=loki.go:615 msg="module failed" module=compactor error="failed to start compactor, because it depends on module ring, which has failed: invalid service state: Failed, expected: Running, failure: starting module ring: invalid service state: Failed, expected: Running, failure: unable to initialise ring state: Get \"http://localhost:8500/v1/kv/collectors/ring?stale=\": dial tcp [::1]:8500: connect: connection refused"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.828392481Z caller=loki.go:615 msg="module failed" module=query-scheduler error="failed to start query-scheduler, because it depends on module analytics, which has failed: context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.828401301Z caller=loki.go:615 msg="module failed" module=query-frontend error="failed to start query-frontend, because it depends on module query-scheduler-ring, which has failed: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.828432036Z caller=module_service.go:120 msg="module stopped" module=query-frontend-tripperware
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.82874336Z caller=module_service.go:120 msg="module stopped" module=cache-generation-loader
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.831589281Z caller=table_manager.go:116 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.831705414Z caller=table_manager.go:187 index-store=boltdb-shipper-2024-01-01 msg="handing over indexes to shipper"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.831774469Z caller=table.go:318 msg="handing over indexes to shipper index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.831911285Z caller=table.go:334 msg="finished handing over table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.831935996Z caller=table_manager.go:77 index-store=boltdb-shipper-2024-01-01 msg="stopping table manager"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.832008651Z caller=table_manager.go:136 index-store=boltdb-shipper-2024-01-01 msg="uploading tables"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.832027368Z caller=index_set.go:86 msg="uploading table index_20525"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.837000561Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.846523602Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.855093345Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.860516973Z caller=index_set.go:107 msg="finished uploading table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.86058136Z caller=index_set.go:186 msg="cleaning up unwanted indexes from table index_20525"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.861055721Z caller=module_service.go:120 msg="module stopped" module=store
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.864715534Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.874264426Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.883878578Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.892393359Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.901865371Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.911400652Z caller=client.go:157 msg="error getting key" key=collectors/scheduler err="Get \"http://localhost:8500/v1/kv/collectors/scheduler\": context canceled"
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.911718832Z caller=loki.go:615 msg="module failed" module=query-scheduler-ring error="starting module query-scheduler-ring: context canceled"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.911886153Z caller=module_service.go:120 msg="module stopped" module=memberlist-kv
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.912469123Z caller=modules.go:2369 msg="server stopped"
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.912488344Z caller=module_service.go:120 msg="module stopped" module=server
+ecommerce-loki  | level=info ts=2026-03-13T16:34:06.91250546Z caller=loki.go:599 msg="Loki stopped" running_time=296.514971ms
+ecommerce-loki  | failed services
+ecommerce-loki  | github.com/grafana/loki/v3/pkg/loki.(*Loki).Run
+ecommerce-loki  | 	/src/loki/pkg/loki/loki.go:657
+ecommerce-loki  | main.main
+ecommerce-loki  | 	/src/loki/cmd/loki/main.go:136
+ecommerce-loki  | runtime.main
+ecommerce-loki  | 	/usr/local/go/src/runtime/proc.go:283
+ecommerce-loki  | runtime.goexit
+ecommerce-loki  | 	/usr/local/go/src/runtime/asm_amd64.s:1700
+ecommerce-loki  | level=error ts=2026-03-13T16:34:06.912739547Z caller=log.go:223 msg="error running loki" err="failed services\ngithub.com/grafana/loki/v3/pkg/loki.(*Loki).Run\n\t/src/loki/pkg/loki/loki.go:657\nmain.main\n\t/src/loki/cmd/loki/main.go:136\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:283\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_amd64.s:1700"

@@ -16,9 +16,23 @@ const { connectDB } = require('./config/db');
 const { createServiceLogger } = require('@shared/logger');
 const { errorHandler, notFoundHandler, requestLogger } = require('@shared/middleware');
 const productRoutes = require('./routes/productRoutes');
+const Product = require('./models/Product');
+const demoProducts = require('./data/demoProducts');
 
 const logger = createServiceLogger('product-service');
 const app = express();
+
+const seedDemoCatalog = async () => {
+  const existingProducts = await Product.countDocuments({ isActive: true });
+
+  if (existingProducts > 0) {
+    logger.info(`Demo catalog already available with ${existingProducts} active products`);
+    return;
+  }
+
+  await Product.insertMany(demoProducts);
+  logger.info(`Seeded demo catalog with ${demoProducts.length} products`);
+};
 
 // ── Middleware ────────────────────────────────────────────────
 app.use(helmet());
@@ -48,6 +62,7 @@ app.use(errorHandler);
 const startServer = async () => {
   try {
     await connectDB(logger);
+    await seedDemoCatalog();
     app.listen(config.port, () => {
       logger.info(`Product Service running on port ${config.port} [${config.nodeEnv}]`);
       logger.info(`Health check: http://localhost:${config.port}/health`);
