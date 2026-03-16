@@ -145,7 +145,7 @@ npm run dev
 URLs:
 
 - `http://localhost:5173` - React storefront
-- `http://localhost:8080` - API gateway
+- `http://localhost:8000` - API gateway
 
 ### 7. Observability URLs
 
@@ -154,12 +154,14 @@ After `docker-compose up -d`, open:
 - `http://localhost:3000` - Grafana (`admin` / `admin`)
 - `http://localhost:16686` - Jaeger
 - `http://localhost:9090` - Prometheus
+- `http://localhost:9093` - Alertmanager
 
 Grafana auto-provisions:
 
 - Prometheus datasource
 - Loki datasource
 - `eCommerce Observability` as the default dashboard
+- `eCommerce SLO Overview` for request rate, error rate, latency, availability, error budget, and CPU SLO views
 
 ### 8. Recommended Demo Flow
 

@@ -15,16 +15,20 @@ const config = require('./config');
 const { connectDB } = require('./config/db');
 const { createServiceLogger } = require('@shared/logger');
 const { errorHandler, notFoundHandler, requestLogger } = require('@shared/middleware');
+const { createHttpMetricsMiddleware, registerRuntimeMetrics } = require('@shared/observability');
 const paymentRoutes = require('./routes/paymentRoutes');
 
 const logger = createServiceLogger('payment-service');
 const app = express();
+
+registerRuntimeMetrics('payment-service');
 
 // ── Middleware ────────────────────────────────────────────────
 app.use(helmet());
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+app.use(createHttpMetricsMiddleware('payment-service'));
 app.use(requestLogger(logger));
 
 // ── Health Check ─────────────────────────────────────────────

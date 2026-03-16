@@ -20,6 +20,7 @@ const config = require('./config');
 const { connectDB } = require('./config/db');
 const { createServiceLogger } = require('@shared/logger');
 const { errorHandler, notFoundHandler, requestLogger } = require('@shared/middleware');
+const { createHttpMetricsMiddleware, registerRuntimeMetrics } = require('@shared/observability');
 const userRoutes = require('./routes/userRoutes');
 
 // Initialize logger for this service
@@ -28,6 +29,8 @@ const logger = createServiceLogger('user-service');
 // Create Express application
 const app = express();
 
+registerRuntimeMetrics('user-service');
+
 // ── Security Middleware ──────────────────────────────────────
 app.use(helmet());                    // Set security-related HTTP headers
 app.use(cors());                      // Enable Cross-Origin Resource Sharing
@@ -35,6 +38,7 @@ app.use(cors());                      // Enable Cross-Origin Resource Sharing
 // ── Body Parsing Middleware ──────────────────────────────────
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+app.use(createHttpMetricsMiddleware('user-service'));
 
 // ── Request Logging ──────────────────────────────────────────
 app.use(requestLogger(logger));

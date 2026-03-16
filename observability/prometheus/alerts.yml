@@ -1,0 +1,132 @@
+groups:
+  - name: slo-recording-rules
+    interval: 30s
+    rules:
+      - record: service:request_rate_1m
+        expr: |
+          sum by (service) (
+            rate(ecommerce_http_requests_total{route!="/health"}[1m])
+          )
+
+      - record: service:error_rate_5m
+        expr: |
+          sum by (service) (
+            rate(ecommerce_http_requests_total{route!="/health",status_class="5xx"}[5m])
+          )
+          /
+          clamp_min(
+            sum by (service) (
+              rate(ecommerce_http_requests_total{route!="/health"}[5m])
+            ),
+            0.001
+          )
+
+      - record: service:latency_p95_5m
+        expr: |
+          histogram_quantile(
+            0.95,
+            sum by (service, le) (
+              rate(ecommerce_http_request_duration_seconds_bucket{route!="/health"}[5m])
+            )
+          )
+
+      - record: service:availability_5m
+        expr: |
+          (1 - service:error_rate_5m) * 100
+
+      - record: service:error_budget_remaining_5m
+        expr: |
+          clamp_min((1 - (service:error_rate_5m / 0.001)) * 100, 0)
+
+  - name: microservice-alerts
+    interval: 15s
+    rules:
+      - alert: ServiceDown
+        expr: absent_over_time(ecommerce_service_uptime_seconds{service="user-service"}[30s])
+        labels:
+          severity: critical
+          service: user-service
+        annotations:
+          summary: "user-service is down"
+          description: "Prometheus has not received runtime heartbeat metrics from user-service for 30 seconds."
+
+      - alert: ServiceDown
+        expr: absent_over_time(ecommerce_service_uptime_seconds{service="product-service"}[30s])
+        labels:
+          severity: critical
+          service: product-service
+        annotations:
+          summary: "product-service is down"
+          description: "Prometheus has not received runtime heartbeat metrics from product-service for 30 seconds."
+
+      - alert: ServiceDown
+        expr: absent_over_time(ecommerce_service_uptime_seconds{service="cart-service"}[30s])
+        labels:
+          severity: critical
+          service: cart-service
+        annotations:
+          summary: "cart-service is down"
+          description: "Prometheus has not received runtime heartbeat metrics from cart-service for 30 seconds."
+
+      - alert: ServiceDown
+        expr: absent_over_time(ecommerce_service_uptime_seconds{service="order-service"}[30s])
+        labels:
+          severity: critical
+          service: order-service
+        annotations:
+          summary: "order-service is down"
+          description: "Prometheus has not received runtime heartbeat metrics from order-service for 30 seconds."
+
+      - alert: ServiceDown
+        expr: absent_over_time(ecommerce_service_uptime_seconds{service="payment-service"}[30s])
+        labels:
+          severity: critical
+          service: payment-service
+        annotations:
+          summary: "payment-service is down"
+          description: "Prometheus has not received runtime heartbeat metrics from payment-service for 30 seconds."
+
+      - alert: HighErrorRate
+        expr: service:error_rate_5m > 0.05
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $labels.service }} has a high 5xx error rate"
+          description: "5xx responses are above 5% over the last 5 minutes."
+
+      - alert: HighLatency
+        expr: service:latency_p95_5m > 0.5
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $labels.service }} has elevated p95 latency"
+          description: "P95 request latency is above 500ms over the last 5 minutes."
+
+      - alert: HighCPUUsage
+        expr: avg_over_time(ecommerce_service_cpu_usage_ratio[5m]) > 0.8
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $labels.service }} is using high CPU"
+          description: "Average CPU consumption has been above 80% of a single core for 5 minutes."
+
+      - alert: AvailabilitySLOBreach
+        expr: service:availability_5m < 99.9
+        for: 15m
+        labels:
+          severity: critical
+        annotations:
+          summary: "{{ $labels.service }} is below the 99.9% availability SLO"
+          description: "Availability has dropped below the 99.9% objective and is consuming the error budget."
+
+      - alert: ErrorBudgetLow
+        expr: service:error_budget_remaining_5m < 25
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $labels.service }} has less than 25% error budget remaining"
+          description: "The service has nearly exhausted its 99.9% availability error budget over the last 5 minutes."
